@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="PEAR," />
+  <meta name="keywords" content="php,错误处理," />
 
 
 
@@ -84,30 +84,33 @@
 
 
 
-<meta name="description" content="在windows系统上用wampserver安装和测试PEAR1. 安装PEAR
-先在D:\wamp\新增子目录pear
-将https://pear.php.net/go-pear.phar保存为go-pear.phar，放在d:\wamp\pear\目录下
-在cmd中进入pear目录，用php指令运行go-pear.phar如下：
-d:wamp\pear&amp;gt;  D:\wamp\bin\php">
+<meta name="description" content="错误的分类：
+语法错误：程序运行之前，都要先检查语法，如果语法有错误，就会立即报错，并且不会去执行程序。
+运行时错误：语法检查通过后，运行程序时遇到的错误。通常分3种：提示性错误 警告性错误 致命错误
+逻辑错误：程序可以正常执行，但执行结果出错了。
+
+错误的分级：php语言中，将各种错误进行了不同级别的分类，并形成大约10几个级别的错误，这就是技术层面的错误分级。每一级别的错误，都有一个代号（系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PEAR的安装与使用">
-<meta property="og:url" content="http://yoursite.com/2016/09/03/PEAR的安装与使用/index.html">
+<meta property="og:title" content="php错误处理（一）">
+<meta property="og:url" content="http://yoursite.com/2016/09/08/php错误处理（一）/index.html">
 <meta property="og:site_name" content="Zandj's Blog">
-<meta property="og:description" content="在windows系统上用wampserver安装和测试PEAR1. 安装PEAR
-先在D:\wamp\新增子目录pear
-将https://pear.php.net/go-pear.phar保存为go-pear.phar，放在d:\wamp\pear\目录下
-在cmd中进入pear目录，用php指令运行go-pear.phar如下：
-d:wamp\pear&amp;gt;  D:\wamp\bin\php">
-<meta property="og:image" content="http://yoursite.com/./pear.png">
-<meta property="og:updated_time" content="2016-09-05T13:07:09.486Z">
+<meta property="og:description" content="错误的分类：
+语法错误：程序运行之前，都要先检查语法，如果语法有错误，就会立即报错，并且不会去执行程序。
+运行时错误：语法检查通过后，运行程序时遇到的错误。通常分3种：提示性错误 警告性错误 致命错误
+逻辑错误：程序可以正常执行，但执行结果出错了。
+
+错误的分级：php语言中，将各种错误进行了不同级别的分类，并形成大约10几个级别的错误，这就是技术层面的错误分级。每一级别的错误，都有一个代号（系统">
+<meta property="og:image" content="http://yoursite.com/1.jpg">
+<meta property="og:updated_time" content="2016-09-08T15:18:53.241Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PEAR的安装与使用">
-<meta name="twitter:description" content="在windows系统上用wampserver安装和测试PEAR1. 安装PEAR
-先在D:\wamp\新增子目录pear
-将https://pear.php.net/go-pear.phar保存为go-pear.phar，放在d:\wamp\pear\目录下
-在cmd中进入pear目录，用php指令运行go-pear.phar如下：
-d:wamp\pear&amp;gt;  D:\wamp\bin\php">
-<meta name="twitter:image" content="http://yoursite.com/./pear.png">
+<meta name="twitter:title" content="php错误处理（一）">
+<meta name="twitter:description" content="错误的分类：
+语法错误：程序运行之前，都要先检查语法，如果语法有错误，就会立即报错，并且不会去执行程序。
+运行时错误：语法检查通过后，运行程序时遇到的错误。通常分3种：提示性错误 警告性错误 致命错误
+逻辑错误：程序可以正常执行，但执行结果出错了。
+
+错误的分级：php语言中，将各种错误进行了不同级别的分类，并形成大约10几个级别的错误，这就是技术层面的错误分级。每一级别的错误，都有一个代号（系统">
+<meta name="twitter:image" content="http://yoursite.com/1.jpg">
 
 
 
@@ -128,9 +131,9 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/03/PEAR的安装与使用/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/08/php错误处理（一）/"/>
 
-  <title> PEAR的安装与使用 | Zandj's Blog </title>
+  <title> php错误处理（一） | Zandj's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +283,7 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
             
             
               
-                PEAR的安装与使用
+                php错误处理（一）
               
             
           </h1>
@@ -292,8 +295,8 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-03T08:59:44+08:00" content="2016-09-03">
-              2016-09-03
+            <time itemprop="dateCreated" datetime="2016-09-08T22:06:40+08:00" content="2016-09-08">
+              2016-09-08
             </time>
           </span>
 
@@ -320,34 +323,71 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
       
 
       
-        <h2 id="在windows系统上用wampserver安装和测试PEAR"><a href="#在windows系统上用wampserver安装和测试PEAR" class="headerlink" title="在windows系统上用wampserver安装和测试PEAR"></a>在windows系统上用wampserver安装和测试PEAR</h2><h4 id="1-安装PEAR"><a href="#1-安装PEAR" class="headerlink" title="1. 安装PEAR"></a>1. 安装PEAR</h4><ul>
-<li>先在<code>D:\wamp\</code>新增子目录pear</li>
-<li>将<code>https://pear.php.net/go-pear.phar</code>保存为<code>go-pear.phar</code>，放在<code>d:\wamp\pear\</code>目录下</li>
-<li>在cmd中进入pear目录，用php指令运行<code>go-pear.phar</code>如下：<blockquote>
-<p><code>d:wamp\pear&gt;  D:\wamp\bin\php\php5.5.12\php.exe  go-pear.phar</code></p>
+        <h3 id="错误的分类："><a href="#错误的分类：" class="headerlink" title="错误的分类："></a>错误的分类：</h3><ol>
+<li>语法错误：<br>程序运行之前，都要先检查语法，如果语法有错误，就会立即报错，并且不会去执行程序。</li>
+<li>运行时错误：<br>语法检查通过后，运行程序时遇到的错误。通常分3种：<br><code>提示性错误</code> <code>警告性错误</code> <code>致命错误</code></li>
+<li>逻辑错误：<br>程序可以正常执行，但执行结果出错了。</li>
+</ol>
+<h3 id="错误的分级："><a href="#错误的分级：" class="headerlink" title="错误的分级："></a>错误的分级：</h3><p><em>php语言中，将各种错误进行了不同级别的分类，并形成大约10几个级别的错误，这就是技术层面的错误分级。每一级别的错误，都有一个代号（系统内部的常量），如：</em></p>
+<ol>
+<li>系统常见错误：<blockquote>
+<p><code>E_ERROR</code>    致命错误<br><code>E_WARNING</code>    警告性错误<br><code>E_NOTICE</code>    提示性错误</p>
 </blockquote>
 </li>
-<li>修改Apache安装目录中的php.ini文件，使 <code>include_path</code> 指向 <code>d:\wamp\pear\pear</code></li>
-<li>参考：<a href="http://blog.sina.com.cn/s/blog_a0d0ec630101cs8k.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_a0d0ec630101cs8k.html</a></li>
-<li>成功安装PEAR目录结构如下：<br><img src="./pear.png" alt="pear目录结构" title="pear目录结构"></li>
-</ul>
-<a id="more"></a>
-<h4 id="2-测试PEAR的安装"><a href="#2-测试PEAR的安装" class="headerlink" title="2. 测试PEAR的安装"></a>2. 测试PEAR的安装</h4><ul>
-<li>进入cmd</li>
-<li>进入PEAR安装目录<code>d:\wamp\pear</code></li>
-<li>运行命令：<code>pear</code></li>
-</ul>
-<h4 id="3-程序包的安装"><a href="#3-程序包的安装" class="headerlink" title="3.程序包的安装"></a>3.程序包的安装</h4><ul>
-<li>命令：<code>pear install 程序包名称</code><blockquote>
-<p>如：<code>d:\wamp\pear&gt;  pear install Net_UserAgent_Detect</code></p>
+<li>用户可自定义的错误：<blockquote>
+<p><code>E_USER_ERROR</code>    自定义致命错误<br><code>E_USER_WARNING</code>    自定义警告性错误<br><code>E_USER_NOTICE</code>    自定义提示性错误</p>
 </blockquote>
 </li>
+<li>其他：<blockquote>
+<p><code>E_STRICT</code>    严谨性语法检查错误<br><code>E_ALL</code>    代表“所有错误”</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="1.jpg" alt="错误分级"></p>
+<h3 id="错误的触发："><a href="#错误的触发：" class="headerlink" title="错误的触发："></a>错误的触发：</h3><ol>
+<li>系统触发<br>系统触发的典型错误有这3种：<blockquote>
+<p><code>E_ERROR</code>    致命错误（导致程序无法执行后续语句，如调用一个不存在的函数）<br><code>E_WARNING</code>    警告性错误（输出错误提示，并继续执行后续代码，比如载入一个不存在的文件）<br><code>E_NOTICE</code>    提示性错误（会输出错误提示，并继续执行后续代码，如使用了一个未定义变量）</p>
+</blockquote>
+</li>
+<li>自定义触发</li>
+</ol>
+<p><em>当我们处理某些数据时，数据不满足我们要求的条件，我们就可以在程序中主动去触发（创建）一个错误，以表明该数据的“非法性”。</em></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(不满足条件)&#123;</div><div class="line">    trigger_error(<span class="string">"数据非法"</span>, E_USER_ERROR（<span class="number">3</span>种用户自定义错误代号之一）);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>E_USER_ERROR级别的错误也会终止后续语句的执行。</strong></p>
+<h3 id="错误报告的显示问题（display-errors）："><a href="#错误报告的显示问题（display-errors）：" class="headerlink" title="错误报告的显示问题（display_errors）："></a>错误报告的显示问题（display_errors）：</h3><p><em>所谓错误报告，就是网页上的错误提示。设置是否显示错误报告：</em></p>
+<ul>
+<li>法一：在php.ini文件中设定<code>display_errors</code>的值为<code>on</code>（显示），或<code>off</code>（不显示）。</li>
 </ul>
-<h4 id="4-附属程序包的安装"><a href="#4-附属程序包的安装" class="headerlink" title="4. 附属程序包的安装"></a>4. 附属程序包的安装</h4><ul>
-<li><code>pear install --alldeps Net_UserAgent_Detect</code></li>
+<blockquote>
+<p>前提条件是Apache已经装载了php.ini文件，即在httpd.config中加入如下一行:<br><code>PHPIniDir  &quot;php.ini文件的路径(所在目录)&quot;;</code></p>
+</blockquote>
+<ul>
+<li>法二：直接在php脚本文件中使用函数<code>ini_set()</code>设置<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ini_set(<span class="string">"display_errors"</span>,<span class="number">0</span> );    <span class="comment">// 1代表显示</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
-<h4 id="5-程序包的卸载"><a href="#5-程序包的卸载" class="headerlink" title="5. 程序包的卸载"></a>5. 程序包的卸载</h4><ul>
-<li><code>pear unintall Net_UserAgent_Detect</code></li>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>不管哪种形式，单词是一样的：<code>display_errors</code></li>
+<li>使用php.ini设置，影响的是全局（即所有php网页）</li>
+<li>在某个脚本代码中使用<code>ini_set()</code>设置，就只影响该脚本代码本身。</li>
+<li>脚本中的设置优先于php.ini中的设置</li>
+</ol>
+</blockquote>
+<h3 id="显示那些级别的错误报告-error-reporting"><a href="#显示那些级别的错误报告-error-reporting" class="headerlink" title="显示那些级别的错误报告(error_reporting)"></a>显示那些级别的错误报告(error_reporting)</h3><blockquote>
+<p>前提是display_errors设置为On（或1）</p>
+</blockquote>
+<ul>
+<li><p>法一：在php.ini文件中修改error_reporting的值，如：</p>
+<blockquote>
+<p><code>E_ALL | E_STRICT</code>    目前代表所有错误（php5.3中的缺陷，php5.4已修改，能真正代表所有错误）<br>真正的所有错误应该写为：<code>E_ERROR|E_STRICT</code><br><code>E_NOTICE</code>    只显示notice级别的错误<br><code>E_NOTICE|E_WARING|E_ERROR</code><br><code>E_ERROR|E_USER_ERROR</code></p>
+</blockquote>
+</li>
+<li><p>法二：在当前脚本代码中用<code>ini_set()</code>函数设置,如：</p>
+<blockquote>
+<p><code>ini_set(&quot;error_reporting&quot;,E_NOTICE);</code><br><code>ini_set(&quot;error_reporting&quot;,E_NOTICE|E_WARNING|E_ERROR);</code></p>
+</blockquote>
+</li>
 </ul>
 
       
@@ -371,7 +411,7 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
       
         <div class="post-tags">
           
-            <a href="/tags/PEAR/" rel="tag">#PEAR</a>
+            <a href="/tags/php-错误处理/" rel="tag">#php,错误处理</a>
           
         </div>
       
@@ -380,16 +420,16 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/02/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/09/06/部署实验/" rel="next" title="部署实验">
+                <i class="fa fa-chevron-left"></i> 部署实验
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/05/沟通很重要/" rel="prev" title="沟通很重要">
-                沟通很重要 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/08/ST3-之-Markdown编辑器/" rel="prev" title="ST3 之 Markdown编辑器">
+                ST3 之 Markdown编辑器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -526,7 +566,7 @@ d:wamp\pear&amp;gt;  D:\wamp\bin\php">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在windows系统上用wampserver安装和测试PEAR"><span class="nav-number">1.</span> <span class="nav-text">在windows系统上用wampserver安装和测试PEAR</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装PEAR"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 安装PEAR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-测试PEAR的安装"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 测试PEAR的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-程序包的安装"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.程序包的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-附属程序包的安装"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. 附属程序包的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-程序包的卸载"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 程序包的卸载</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误的分类："><span class="nav-number">1.</span> <span class="nav-text">错误的分类：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误的分级："><span class="nav-number">2.</span> <span class="nav-text">错误的分级：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误的触发："><span class="nav-number">3.</span> <span class="nav-text">错误的触发：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误报告的显示问题（display-errors）："><span class="nav-number">4.</span> <span class="nav-text">错误报告的显示问题（display_errors）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示那些级别的错误报告-error-reporting"><span class="nav-number">5.</span> <span class="nav-text">显示那些级别的错误报告(error_reporting)</span></a></li></ol></div>
             
           </div>
         </section>

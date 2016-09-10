@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="沟通,摘录," />
+  <meta name="keywords" content="php,数据库,PDO," />
 
 
 
@@ -84,16 +84,46 @@
 
 
 
-<meta name="description" content="很多事情，你看到的听到的未必是你想象的那样">
+<meta name="description" content="数据库抽象层
+
+扩展类库
+在PHP的基础上进行了一些扩展，并且是以类的形式进行扩展的，多用C语言实现，因为PHP使用C语言实现的。既然是扩展类库，那么在使用的时候就必须要把类实例化成对象。
+
+PDO
+PDO（php data objece）扩展类库为PHP访问数据库定义了轻量级的、一致性的接口。即不论使用何种数据库，只写一套标准SQL语句就可以通过一致的函数执行查询和获取数据
+
+PDO的安装
+
+编">
 <meta property="og:type" content="article">
-<meta property="og:title" content="沟通很重要">
-<meta property="og:url" content="http://yoursite.com/2016/09/05/沟通很重要/index.html">
+<meta property="og:title" content="php 数据库操作之PDO（一）">
+<meta property="og:url" content="http://yoursite.com/2016/09/10/php-数据库操作之PDO（一）/index.html">
 <meta property="og:site_name" content="Zandj's Blog">
-<meta property="og:description" content="很多事情，你看到的听到的未必是你想象的那样">
-<meta property="og:updated_time" content="2016-09-05T13:22:39.745Z">
+<meta property="og:description" content="数据库抽象层
+
+扩展类库
+在PHP的基础上进行了一些扩展，并且是以类的形式进行扩展的，多用C语言实现，因为PHP使用C语言实现的。既然是扩展类库，那么在使用的时候就必须要把类实例化成对象。
+
+PDO
+PDO（php data objece）扩展类库为PHP访问数据库定义了轻量级的、一致性的接口。即不论使用何种数据库，只写一套标准SQL语句就可以通过一致的函数执行查询和获取数据
+
+PDO的安装
+
+编">
+<meta property="og:updated_time" content="2016-09-10T08:15:01.367Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="沟通很重要">
-<meta name="twitter:description" content="很多事情，你看到的听到的未必是你想象的那样">
+<meta name="twitter:title" content="php 数据库操作之PDO（一）">
+<meta name="twitter:description" content="数据库抽象层
+
+扩展类库
+在PHP的基础上进行了一些扩展，并且是以类的形式进行扩展的，多用C语言实现，因为PHP使用C语言实现的。既然是扩展类库，那么在使用的时候就必须要把类实例化成对象。
+
+PDO
+PDO（php data objece）扩展类库为PHP访问数据库定义了轻量级的、一致性的接口。即不论使用何种数据库，只写一套标准SQL语句就可以通过一致的函数执行查询和获取数据
+
+PDO的安装
+
+编">
 
 
 
@@ -114,9 +144,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/05/沟通很重要/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/10/php-数据库操作之PDO（一）/"/>
 
-  <title> 沟通很重要 | Zandj's Blog </title>
+  <title> php 数据库操作之PDO（一） | Zandj's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -266,7 +296,7 @@
             
             
               
-                沟通很重要
+                php 数据库操作之PDO（一）
               
             
           </h1>
@@ -278,8 +308,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T21:17:11+08:00" content="2016-09-05">
-              2016-09-05
+            <time itemprop="dateCreated" datetime="2016-09-10T15:26:55+08:00" content="2016-09-10">
+              2016-09-10
             </time>
           </span>
 
@@ -292,8 +322,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/文章/" itemprop="url" rel="index">
-                    <span itemprop="name">文章</span>
+                  <a href="/categories/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
                   </a>
                 </span>
 
@@ -325,11 +355,42 @@
       
 
       
-        <blockquote>
-<p>很多事情，你看到的听到的未必是你想象的那样<br><a id="more"></a><br>人生在世，多给别人解释的机会<br>我不问，你不说，这就是距离；<br>我问了，你不说，这就是隔阂；<br>我不问，你说了，这就是信任；<br>我问了，你说了，这就是尊重；<br>我想说，你想问，这就是默契。</p>
-<p>心若亲近，言行必如流水般自然；<br>心若疏远，言行必如三秋之树般萧瑟。</p>
-<p>不怕身隔天涯，只怕心在南北！<br>任何时候，沟通很重要。</p>
-</blockquote>
+        <h3 id="数据库抽象层"><a href="#数据库抽象层" class="headerlink" title="数据库抽象层"></a>数据库抽象层</h3><hr>
+<blockquote>
+<h4 id="扩展类库"><a href="#扩展类库" class="headerlink" title="扩展类库"></a>扩展类库</h4></blockquote>
+<p>在PHP的基础上进行了一些扩展，并且是以类的形式进行扩展的，多用C语言实现，因为PHP使用C语言实现的。<br>既然是扩展类库，那么在使用的时候就必须要把类实例化成对象。</p>
+<blockquote>
+<h4 id="PDO"><a href="#PDO" class="headerlink" title="PDO"></a>PDO</h4></blockquote>
+<p><em>PDO（php data objece）</em>扩展类库为PHP访问数据库定义了轻量级的、一致性的接口。即不论使用何种数据库，只写一套标准SQL语句就可以通过一致的函数执行查询和获取数据</p>
+<blockquote>
+<h4 id="PDO的安装"><a href="#PDO的安装" class="headerlink" title="PDO的安装"></a>PDO的安装</h4></blockquote>
+<ol>
+<li>编辑php.ini文件(先确保php的bin/ext文件夹中有相应的pdo扩展文件)<br> <code>extention=php_pdo.dll</code><br> <code>extention=php_pdo_mysql.dll</code></li>
+<li>重启Apache服务器</li>
+<li>打开phpinfo.php查看是否有pdo (<code>ctrl + F</code>查找pdo)</li>
+</ol>
+<h3 id="创建PDO对象及与连接相关的设置"><a href="#创建PDO对象及与连接相关的设置" class="headerlink" title="创建PDO对象及与连接相关的设置"></a>创建PDO对象及与连接相关的设置</h3><hr>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$dsn = <span class="string">'mysql:host=localhost;dbname=test'</span>;</div><div class="line">$user = <span class="string">'root'</span>;</div><div class="line">$password = <span class="string">''</span>;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">    $pdo = <span class="keyword">new</span> PDO($dsn, $user, $password);</div><div class="line">    <span class="comment">//var_dump($pdo);</span></div><div class="line">    <span class="comment">//设置错误处理模式，推荐为异常处理模式</span></div><div class="line">    $pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div><div class="line">    <span class="comment">//设置是否关闭自动提交功能</span></div><div class="line">    $pdo-&gt;setAttribute(PDO::ATTR_AUTOCOMMIT, <span class="number">0</span>);</div><div class="line">    <span class="comment">//设置结果集返回格式一般设置为索引数组或关联数组，它们是最快的。</span></div><div class="line">    $pdo-&gt;setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::ASSOC);</div><div class="line">&#125;<span class="keyword">catch</span>(PDOException $e)&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'数据库连接失败：'</span> . $e-&gt;getMessage();</div><div class="line">    <span class="keyword">echo</span> <span class="string">'错误产生的文件：'</span> . $e-&gt;getFile();</div><div class="line">    <span class="keyword">echo</span> <span class="string">'错误行：'</span> . $e-&gt;getLine();</div><div class="line">    <span class="keyword">echo</span> <span class="string">'错误码：'</span> . $e-&gt;getCode();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="设置php连接mysql时客户端字符集合连接字符集"><a href="#设置php连接mysql时客户端字符集合连接字符集" class="headerlink" title="设置php连接mysql时客户端字符集合连接字符集"></a>设置php连接mysql时客户端字符集合连接字符集</h4></blockquote>
+<ul>
+<li>方法一：<code>$pdo-&gt;exec(&quot;set names utf8&quot;);</code></li>
+<li>方法二：<code>$pdo-&gt;query(&quot;set names utf8&quot;)</code><br><strong>注意：</strong><br>1 <em>实际开发项目时是不用写的，因为如果写了，每次用户连接数据库都会执行一次，从而降低数据库效率。</em><br>2 <em>实际开发时只需要保证编辑器的编码，数据库的字符校验集，HTML页面所使用的编码三者一致就肯定不会出现乱码。</em></li>
+</ul>
+<blockquote>
+<h4 id="与连接相关的设置"><a href="#与连接相关的设置" class="headerlink" title="与连接相关的设置"></a>与连接相关的设置</h4></blockquote>
+<p>格式：<code>$pdo-&gt;setAttribute(类名::常量, 类名::常量);</code></p>
+<ul>
+<li><p>错误模式——PDO::ATTR_ERRMODE</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PDO::ERRMODE_SLIENT    <span class="comment">//不报错</span></div><div class="line">PDO::ERRMODE_WARNING    <span class="comment">//警告</span></div><div class="line">PDO::ERRMODE_EXCEPTION    <span class="comment">//异常处理方式，出现错误就抛出一个异常，推荐使用</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>自动提交（用于事物处理）——PDO::ATTR_AUTOCOMMIT</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>    <span class="comment">//关闭自动提交</span></div><div class="line"><span class="number">1</span>    <span class="comment">//开启</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>结果集返回格式——PDO::ATTR_DEFAULT_FETCH_MODE</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">PDO:FETCH_ASSOC    <span class="comment">//(关联数组)</span></div><div class="line">PDO:FETCH_NUM    <span class="comment">//（索引数组）</span></div><div class="line">PDO:FETCH_BOTH    <span class="comment">//（关联数组和索引数组）</span></div><div class="line">PDO:FETCH_OBJ    <span class="comment">//（对象）</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -352,9 +413,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/沟通/" rel="tag">#沟通</a>
+            <a href="/tags/php/" rel="tag">#php</a>
           
-            <a href="/tags/摘录/" rel="tag">#摘录</a>
+            <a href="/tags/数据库/" rel="tag">#数据库</a>
+          
+            <a href="/tags/PDO/" rel="tag">#PDO</a>
           
         </div>
       
@@ -363,17 +426,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/03/PEAR的安装与使用/" rel="next" title="PEAR的安装与使用">
-                <i class="fa fa-chevron-left"></i> PEAR的安装与使用
+              <a href="/2016/09/08/ST3-之-Markdown编辑器/" rel="next" title="ST3 之 Markdown编辑器">
+                <i class="fa fa-chevron-left"></i> ST3 之 Markdown编辑器
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/06/部署实验/" rel="prev" title="部署实验">
-                部署实验 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -509,7 +568,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库抽象层"><span class="nav-number">1.</span> <span class="nav-text">数据库抽象层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展类库"><span class="nav-number">1.1.</span> <span class="nav-text">扩展类库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO"><span class="nav-number">1.2.</span> <span class="nav-text">PDO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PDO的安装"><span class="nav-number">1.3.</span> <span class="nav-text">PDO的安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建PDO对象及与连接相关的设置"><span class="nav-number">2.</span> <span class="nav-text">创建PDO对象及与连接相关的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置php连接mysql时客户端字符集合连接字符集"><span class="nav-number">2.1.</span> <span class="nav-text">设置php连接mysql时客户端字符集合连接字符集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与连接相关的设置"><span class="nav-number">2.2.</span> <span class="nav-text">与连接相关的设置</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
