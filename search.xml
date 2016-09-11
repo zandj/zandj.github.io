@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title></title>
+      <url>http://yoursite.com/2016/09/11/php%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+      <content type="html"><![CDATA[<!DOCTYPE html><html><head><title>错误日志的记录问题</title><meta charset="utf-8"><link href="https://dn-maxiang.qbox.me/res-min/themes/marxico.css" rel="stylesheet"><style></style></head><body><div id="preview-contents" class="note-content">
+                        
+                    
+
+<h3 id="错误日志的记录问题">错误日志的记录问题</h3>
+
+<p><em>所谓错误日志，其实就是 错误报告，只是它会写入文件中，此时就叫错误日志。</em></p>
+
+<ol start="1"><li rel="1"><p>是否记录：</p>
+
+<ul>
+<li>php.ini中：<code>log_errors = On 或 Off</code></li>
+<li>脚本中：<code>ini_set("log_errors", 1 或 0);</code></li></ul></li>
+</ol>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-php hljs">ini_set(<span class="hljs-string">"php配置项"</span>, 值);    <span class="hljs-comment">//用于脚本中配置php.ini中某项的值，只作用于当前脚本。</span><br>ini_get(<span class="hljs-string">"php配置项"</span>);    <span class="hljs-comment">//用于获取php中某配置项的值</span><br></code></pre>
+
+<ol start="2"><li rel="2"><p>记录到哪里(error_log)：</p>
+
+<ul>
+<li>写法一：直接使用一个文件名，此时系统会自动在每个文件夹下都建立该文件，用于记录该文件夹下所有网页文件发生的错误信息。</li>
+<li>写法二：使用一个特殊的名字<code>“syslog”</code>，则此时所有错误信息都会记录到系统的日志文件中(<code>控制面板--管理工具--事件查看器--Windows日志--应用程序</code>)</li></ul></li>
+</ol>
+
+<blockquote>
+  <ul><li>php.ini中：<code>修改error_log</code></li>
+  <li>脚本中：</li>
+  </ul>
+</blockquote>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-php hljs">    ini_set(<span class="hljs-string">"error_log"</span>, <span class="hljs-string">"my_error.txt"</span>);<br>    ini_set(<span class="hljs-string">"error_log"</span>, <span class="hljs-string">"syslog"</span>);<br></code></pre>
+
+
+
+<h3 id="自定义错误处理器">自定义错误处理器：</h3>
+
+<p><em>错误处理器：就是一旦发生错误，用来处理该错误的一种机器——其实是一个函数。</em></p>
+
+<p><strong>自定义错误处理器：</strong> <br>
+    <em>让系统不要去处理错误了，而完全由开发者来对错误进行处理——显示和记录。</em></p>
+
+<p><strong>做法：</strong> <br>
+第一步：设定要用于处理错误的函数名</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-php hljs">    set_error_handler(<span class="hljs-string">"my_error_handler"</span>);<br></code></pre>
+
+<p>第二步：去定义该函数</p>
+
+
+
+<pre class="prettyprint hljs-dark"><code class="language-php hljs">    set_error_handler(<span class="hljs-string">"my_error_handler"</span>);<br>    <span class="hljs-comment">/**<br>     * 自定义错误处理器，参数按顺序代表的含义是固定的，名字可以自己定义<br>     * <span class="hljs-doctag">@param</span>  $errCode [错误代号]<br>     * <span class="hljs-doctag">@param</span>  $errMsg  [错误内容]<br>     * <span class="hljs-doctag">@param</span>  $errFile [错误文件]<br>     * <span class="hljs-doctag">@param</span>  $errLine [错误行号]<br>     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_error_handler</span><span class="hljs-params">(<span class="hljs-variable">$errCode</span>, <span class="hljs-variable">$errMsg</span>, <span class="hljs-variable">$errFile</span>, <span class="hljs-variable">$errLine</span>)</span></span>{<br>        <span class="hljs-variable">$str</span> = <span class="hljs-string">""</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;p&gt;错误："</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误代号为："</span>.<span class="hljs-variable">$errCode</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误信息为："</span>.<span class="hljs-variable">$errMsg</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误文件为："</span>.<span class="hljs-variable">$errFile</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误行号为："</span>.<span class="hljs-variable">$errLine</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;发生错误时间为："</span>.date(<span class="hljs-string">"Y-m-d H:i:s"</span>);<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;/p&gt;"</span>;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>;<br>    }<br></code></pre></div></body></html>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[人生七耐]]></title>
+      <url>http://yoursite.com/2016/09/10/%E4%BA%BA%E7%94%9F%E4%B8%83%E8%80%90/</url>
+      <content type="html"><![CDATA[<img src="./194276-102.jpg" class="full-image">
+<blockquote class="blockquote-center"><p><strong>人生七耐</strong><br><em>–东坡志林</em><br>人生，耐贫贱易，耐富贵难<br>安勤苦易，安闲散难<br>忍痛易，忍痒难<br>能耐富贵，安闲散，忍痒者<br>必有道之士也</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[php 数据库操作之PDO（一）]]></title>
+      <url>http://yoursite.com/2016/09/10/php-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C%E4%B9%8BPDO%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h3 id="数据库抽象层"><a href="#数据库抽象层" class="headerlink" title="数据库抽象层"></a>数据库抽象层</h3><hr>
+<blockquote>
+<h4 id="扩展类库"><a href="#扩展类库" class="headerlink" title="扩展类库"></a>扩展类库</h4></blockquote>
+<p>在PHP的基础上进行了一些扩展，并且是以类的形式进行扩展的，多用C语言实现，因为PHP使用C语言实现的。<br>既然是扩展类库，那么在使用的时候就必须要把类实例化成对象。</p>
+<blockquote>
+<h4 id="PDO"><a href="#PDO" class="headerlink" title="PDO"></a>PDO</h4></blockquote>
+<p><em>PDO（php data objece）</em>扩展类库为PHP访问数据库定义了轻量级的、一致性的接口。即不论使用何种数据库，只写一套标准SQL语句就可以通过一致的函数执行查询和获取数据</p>
+<blockquote>
+<h4 id="PDO的安装"><a href="#PDO的安装" class="headerlink" title="PDO的安装"></a>PDO的安装</h4></blockquote>
+<ol>
+<li>编辑php.ini文件(先确保php的bin/ext文件夹中有相应的pdo扩展文件)<br> <code>extention=php_pdo.dll</code><br> <code>extention=php_pdo_mysql.dll</code></li>
+<li>重启Apache服务器</li>
+<li>打开phpinfo.php查看是否有pdo (<code>ctrl + F</code>查找pdo)</li>
+</ol>
+<h3 id="创建PDO对象及与连接相关的设置"><a href="#创建PDO对象及与连接相关的设置" class="headerlink" title="创建PDO对象及与连接相关的设置"></a>创建PDO对象及与连接相关的设置</h3><hr>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$dsn = <span class="string">'mysql:host=localhost;dbname=test'</span>;</div><div class="line">$user = <span class="string">'root'</span>;</div><div class="line">$password = <span class="string">''</span>;</div><div class="line"><span class="keyword">try</span>&#123;</div><div class="line">    $pdo = <span class="keyword">new</span> PDO($dsn, $user, $password);</div><div class="line">    <span class="comment">//var_dump($pdo);</span></div><div class="line">    <span class="comment">//设置错误处理模式，推荐为异常处理模式</span></div><div class="line">    $pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);</div><div class="line">    <span class="comment">//设置是否关闭自动提交功能</span></div><div class="line">    $pdo-&gt;setAttribute(PDO::ATTR_AUTOCOMMIT, <span class="number">0</span>);</div><div class="line">    <span class="comment">//设置结果集返回格式一般设置为索引数组或关联数组，它们是最快的。</span></div><div class="line">    $pdo-&gt;setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::ASSOC);</div><div class="line">&#125;<span class="keyword">catch</span>(PDOException $e)&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'数据库连接失败：'</span> . $e-&gt;getMessage();</div><div class="line">    <span class="keyword">echo</span> <span class="string">'错误产生的文件：'</span> . $e-&gt;getFile();</div><div class="line">    <span class="keyword">echo</span> <span class="string">'错误行：'</span> . $e-&gt;getLine();</div><div class="line">    <span class="keyword">echo</span> <span class="string">'错误码：'</span> . $e-&gt;getCode();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="设置php连接mysql时客户端字符集合连接字符集"><a href="#设置php连接mysql时客户端字符集合连接字符集" class="headerlink" title="设置php连接mysql时客户端字符集合连接字符集"></a>设置php连接mysql时客户端字符集合连接字符集</h4></blockquote>
+<ul>
+<li>方法一：<code>$pdo-&gt;exec(&quot;set names utf8&quot;);</code></li>
+<li>方法二：<code>$pdo-&gt;query(&quot;set names utf8&quot;)</code><br><strong>注意：</strong><br>1 <em>实际开发项目时是不用写的，因为如果写了，每次用户连接数据库都会执行一次，从而降低数据库效率。</em><br>2 <em>实际开发时只需要保证编辑器的编码，数据库的字符校验集，HTML页面所使用的编码三者一致就肯定不会出现乱码。</em></li>
+</ul>
+<blockquote>
+<h4 id="与连接相关的设置"><a href="#与连接相关的设置" class="headerlink" title="与连接相关的设置"></a>与连接相关的设置</h4></blockquote>
+<p>格式：<code>$pdo-&gt;setAttribute(类名::常量, 类名::常量);</code></p>
+<ul>
+<li><p>错误模式——PDO::ATTR_ERRMODE</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PDO::ERRMODE_SLIENT    <span class="comment">//不报错</span></div><div class="line">PDO::ERRMODE_WARNING    <span class="comment">//警告</span></div><div class="line">PDO::ERRMODE_EXCEPTION    <span class="comment">//异常处理方式，出现错误就抛出一个异常，推荐使用</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>自动提交（用于事物处理）——PDO::ATTR_AUTOCOMMIT</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span>    <span class="comment">//关闭自动提交</span></div><div class="line"><span class="number">1</span>    <span class="comment">//开启</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>结果集返回格式——PDO::ATTR_DEFAULT_FETCH_MODE</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">PDO:FETCH_ASSOC    <span class="comment">//(关联数组)</span></div><div class="line">PDO:FETCH_NUM    <span class="comment">//（索引数组）</span></div><div class="line">PDO:FETCH_BOTH    <span class="comment">//（关联数组和索引数组）</span></div><div class="line">PDO:FETCH_OBJ    <span class="comment">//（对象）</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[ST3 之 Markdown编辑器]]></title>
+      <url>http://yoursite.com/2016/09/08/ST3-%E4%B9%8B-Markdown%E7%BC%96%E8%BE%91%E5%99%A8/</url>
+      <content type="html"><![CDATA[<h3 id="安装Markdown-Preview插件"><a href="#安装Markdown-Preview插件" class="headerlink" title="安装Markdown Preview插件"></a>安装Markdown Preview插件</h3><ul>
+<li><p>用法:新建文件，后缀<code>.md</code><br><img src="./1.jpg" alt="Markdown Preview 使用" title="Markdown Preview use"></p>
+</li>
+<li><p>设置快捷键</p>
+<blockquote>
+<p><code>Preference</code>-&gt;<code>Key Bindings - User</code>中加入如下代码：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"keys"</span>: [<span class="string">"alt+m"</span>],</div><div class="line">    <span class="attr">"command"</span>: <span class="string">"markdown_preview"</span>,</div><div class="line">    <span class="attr">"args"</span>: &#123;<span class="attr">"target"</span>: <span class="string">"browser"</span>, <span class="attr">"parser"</span>:<span class="string">"markdown"</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>build</p>
+<blockquote>
+<p><code>Ctrl + B</code>可在当前目录生成html文件<br>在文件中插入<code>[TOC]</code>生成目录</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="安装Markdown-Editing插件"><a href="#安装Markdown-Editing插件" class="headerlink" title="安装Markdown Editing插件"></a>安装Markdown Editing插件</h3><ul>
+<li>自带三个主题，支持Markdown语法高亮，可在<code>Preference</code>-&gt;<code>Settings - More</code>-&gt;<code>Syntax Specific - User</code>和<code>Preference</code>-&gt;<code>Package Settings</code>-&gt;<code>Markdown Editing</code>-&gt;<code>GFM</code>中设置要使用的主题</li>
+<li>在后者<code>GFM</code>中设置<code>&quot;wrap_width&quot;: 100</code>来改变编辑区左侧空白。</li>
+<li>该插件还支持一些快速插入操作<br><img src="./2.jpg" alt="Markdown Editing" title="Markdown Editing"></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[php错误处理（一）]]></title>
+      <url>http://yoursite.com/2016/09/08/php%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h3 id="错误的分类："><a href="#错误的分类：" class="headerlink" title="错误的分类："></a>错误的分类：</h3><ol>
+<li>语法错误：<br>程序运行之前，都要先检查语法，如果语法有错误，就会立即报错，并且不会去执行程序。</li>
+<li>运行时错误：<br>语法检查通过后，运行程序时遇到的错误。通常分3种：<br><code>提示性错误</code> <code>警告性错误</code> <code>致命错误</code></li>
+<li>逻辑错误：<br>程序可以正常执行，但执行结果出错了。</li>
+</ol>
+<h3 id="错误的分级："><a href="#错误的分级：" class="headerlink" title="错误的分级："></a>错误的分级：</h3><p><em>php语言中，将各种错误进行了不同级别的分类，并形成大约10几个级别的错误，这就是技术层面的错误分级。每一级别的错误，都有一个代号（系统内部的常量），如：</em></p>
+<ol>
+<li>系统常见错误：<blockquote>
+<p><code>E_ERROR</code>    致命错误<br><code>E_WARNING</code>    警告性错误<br><code>E_NOTICE</code>    提示性错误</p>
+</blockquote>
+</li>
+<li>用户可自定义的错误：<blockquote>
+<p><code>E_USER_ERROR</code>    自定义致命错误<br><code>E_USER_WARNING</code>    自定义警告性错误<br><code>E_USER_NOTICE</code>    自定义提示性错误</p>
+</blockquote>
+</li>
+<li>其他：<blockquote>
+<p><code>E_STRICT</code>    严谨性语法检查错误<br><code>E_ALL</code>    代表“所有错误”</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="1.jpg" alt="错误分级"></p>
+<h3 id="错误的触发："><a href="#错误的触发：" class="headerlink" title="错误的触发："></a>错误的触发：</h3><ol>
+<li>系统触发<br>系统触发的典型错误有这3种：<blockquote>
+<p><code>E_ERROR</code>    致命错误（导致程序无法执行后续语句，如调用一个不存在的函数）<br><code>E_WARNING</code>    警告性错误（输出错误提示，并继续执行后续代码，比如载入一个不存在的文件）<br><code>E_NOTICE</code>    提示性错误（会输出错误提示，并继续执行后续代码，如使用了一个未定义变量）</p>
+</blockquote>
+</li>
+<li>自定义触发</li>
+</ol>
+<p><em>当我们处理某些数据时，数据不满足我们要求的条件，我们就可以在程序中主动去触发（创建）一个错误，以表明该数据的“非法性”。</em></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(不满足条件)&#123;</div><div class="line">    trigger_error(<span class="string">"数据非法"</span>, E_USER_ERROR（<span class="number">3</span>种用户自定义错误代号之一）);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>E_USER_ERROR级别的错误也会终止后续语句的执行。</strong></p>
+<h3 id="错误报告的显示问题（display-errors）："><a href="#错误报告的显示问题（display-errors）：" class="headerlink" title="错误报告的显示问题（display_errors）："></a>错误报告的显示问题（display_errors）：</h3><p><em>所谓错误报告，就是网页上的错误提示。设置是否显示错误报告：</em></p>
+<ul>
+<li>法一：在php.ini文件中设定<code>display_errors</code>的值为<code>on</code>（显示），或<code>off</code>（不显示）。</li>
+</ul>
+<blockquote>
+<p>前提条件是Apache已经装载了php.ini文件，即在httpd.config中加入如下一行:<br><code>PHPIniDir  &quot;php.ini文件的路径(所在目录)&quot;;</code></p>
+</blockquote>
+<ul>
+<li>法二：直接在php脚本文件中使用函数<code>ini_set()</code>设置<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ini_set(<span class="string">"display_errors"</span>,<span class="number">0</span> );    <span class="comment">// 1代表显示</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>不管哪种形式，单词是一样的：<code>display_errors</code></li>
+<li>使用php.ini设置，影响的是全局（即所有php网页）</li>
+<li>在某个脚本代码中使用<code>ini_set()</code>设置，就只影响该脚本代码本身。</li>
+<li>脚本中的设置优先于php.ini中的设置</li>
+</ol>
+</blockquote>
+<h3 id="显示那些级别的错误报告-error-reporting"><a href="#显示那些级别的错误报告-error-reporting" class="headerlink" title="显示那些级别的错误报告(error_reporting)"></a>显示那些级别的错误报告(error_reporting)</h3><blockquote>
+<p>前提是display_errors设置为On（或1）</p>
+</blockquote>
+<ul>
+<li><p>法一：在php.ini文件中修改error_reporting的值，如：</p>
+<blockquote>
+<p><code>E_ALL | E_STRICT</code>    目前代表所有错误（php5.3中的缺陷，php5.4已修改，能真正代表所有错误）<br>真正的所有错误应该写为：<code>E_ERROR|E_STRICT</code><br><code>E_NOTICE</code>    只显示notice级别的错误<br><code>E_NOTICE|E_WARING|E_ERROR</code><br><code>E_ERROR|E_USER_ERROR</code></p>
+</blockquote>
+</li>
+<li><p>法二：在当前脚本代码中用<code>ini_set()</code>函数设置,如：</p>
+<blockquote>
+<p><code>ini_set(&quot;error_reporting&quot;,E_NOTICE);</code><br><code>ini_set(&quot;error_reporting&quot;,E_NOTICE|E_WARNING|E_ERROR);</code></p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[部署实验]]></title>
+      <url>http://yoursite.com/2016/09/06/%E9%83%A8%E7%BD%B2%E5%AE%9E%E9%AA%8C/</url>
+      <content type="html"><![CDATA[<h3 id="这是对hexo-deploy的实验……"><a href="#这是对hexo-deploy的实验……" class="headerlink" title="这是对hexo deploy的实验……"></a>这是对hexo deploy的实验……</h3><a id="more"></a>
+<p>在网上查了老半天，终于弄好了！exceting!</p>
+<blockquote><p>Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.</p>
+<footer><strong>David Levithan</strong><cite>Wide Awake</cite></footer></blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[rectangle setX: <span class="number">10</span> y:<span class="number">10</span> width:<span class="number">20</span> height:<span class="number">20</span>];</div></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[沟通很重要]]></title>
+      <url>http://yoursite.com/2016/09/05/%E6%B2%9F%E9%80%9A%E5%BE%88%E9%87%8D%E8%A6%81/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>很多事情，你看到的听到的未必是你想象的那样<br><a id="more"></a><br>人生在世，多给别人解释的机会<br>我不问，你不说，这就是距离；<br>我问了，你不说，这就是隔阂；<br>我不问，你说了，这就是信任；<br>我问了，你说了，这就是尊重；<br>我想说，你想问，这就是默契。</p>
+<p>心若亲近，言行必如流水般自然；<br>心若疏远，言行必如三秋之树般萧瑟。</p>
+<p>不怕身隔天涯，只怕心在南北！<br>任何时候，沟通很重要。</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[PEAR的安装与使用]]></title>
+      <url>http://yoursite.com/2016/09/03/PEAR%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h2 id="在windows系统上用wampserver安装和测试PEAR"><a href="#在windows系统上用wampserver安装和测试PEAR" class="headerlink" title="在windows系统上用wampserver安装和测试PEAR"></a>在windows系统上用wampserver安装和测试PEAR</h2><h4 id="1-安装PEAR"><a href="#1-安装PEAR" class="headerlink" title="1. 安装PEAR"></a>1. 安装PEAR</h4><ul>
+<li>先在<code>D:\wamp\</code>新增子目录pear</li>
+<li>将<code>https://pear.php.net/go-pear.phar</code>保存为<code>go-pear.phar</code>，放在<code>d:\wamp\pear\</code>目录下</li>
+<li>在cmd中进入pear目录，用php指令运行<code>go-pear.phar</code>如下：<blockquote>
+<p><code>d:wamp\pear&gt;  D:\wamp\bin\php\php5.5.12\php.exe  go-pear.phar</code></p>
+</blockquote>
+</li>
+<li>修改Apache安装目录中的php.ini文件，使 <code>include_path</code> 指向 <code>d:\wamp\pear\pear</code></li>
+<li>参考：<a href="http://blog.sina.com.cn/s/blog_a0d0ec630101cs8k.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_a0d0ec630101cs8k.html</a></li>
+<li>成功安装PEAR目录结构如下：<br><img src="./pear.png" alt="pear目录结构" title="pear目录结构"></li>
+</ul>
+<a id="more"></a>
+<h4 id="2-测试PEAR的安装"><a href="#2-测试PEAR的安装" class="headerlink" title="2. 测试PEAR的安装"></a>2. 测试PEAR的安装</h4><ul>
+<li>进入cmd</li>
+<li>进入PEAR安装目录<code>d:\wamp\pear</code></li>
+<li>运行命令：<code>pear</code></li>
+</ul>
+<h4 id="3-程序包的安装"><a href="#3-程序包的安装" class="headerlink" title="3.程序包的安装"></a>3.程序包的安装</h4><ul>
+<li>命令：<code>pear install 程序包名称</code><blockquote>
+<p>如：<code>d:\wamp\pear&gt;  pear install Net_UserAgent_Detect</code></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="4-附属程序包的安装"><a href="#4-附属程序包的安装" class="headerlink" title="4. 附属程序包的安装"></a>4. 附属程序包的安装</h4><ul>
+<li><code>pear install --alldeps Net_UserAgent_Detect</code></li>
+</ul>
+<h4 id="5-程序包的卸载"><a href="#5-程序包的卸载" class="headerlink" title="5. 程序包的卸载"></a>5. 程序包的卸载</h4><ul>
+<li><code>pear unintall Net_UserAgent_Detect</code></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>http://yoursite.com/2016/09/02/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    </entry>
+    
+  
+  
+</search>
