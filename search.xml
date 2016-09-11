@@ -4,65 +4,36 @@
   
     
     <entry>
-      <title></title>
+      <title><![CDATA[php错误处理（二）]]></title>
       <url>http://yoursite.com/2016/09/11/php%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-      <content type="html"><![CDATA[<!DOCTYPE html><html><head><title>错误日志的记录问题</title><meta charset="utf-8"><link href="https://dn-maxiang.qbox.me/res-min/themes/marxico.css" rel="stylesheet"><style></style></head><body><div id="preview-contents" class="note-content">
-                        
-                    
-
-<h3 id="错误日志的记录问题">错误日志的记录问题</h3>
-
-<p><em>所谓错误日志，其实就是 错误报告，只是它会写入文件中，此时就叫错误日志。</em></p>
-
-<ol start="1"><li rel="1"><p>是否记录：</p>
-
+      <content type="html"><![CDATA[<h3 id="错误日志的记录问题"><a href="#错误日志的记录问题" class="headerlink" title="错误日志的记录问题"></a>错误日志的记录问题</h3><p><em>所谓错误日志，其实就是 错误报告，只是它会写入文件中，此时就叫错误日志。</em></p>
+<ol>
+<li>是否记录：</li>
+</ol>
 <ul>
 <li>php.ini中：<code>log_errors = On 或 Off</code></li>
-<li>脚本中：<code>ini_set("log_errors", 1 或 0);</code></li></ul></li>
+<li>脚本中：<code>ini_set(&quot;log_errors&quot;, 1 或 0);</code></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ini_set(<span class="string">"php配置项"</span>, 值);    <span class="comment">//用于脚本中配置php.ini中某项的值，只作用于当前脚本。</span></div><div class="line">ini_get(<span class="string">"php配置项"</span>);    <span class="comment">//用于获取php中某配置项的值</span></div></pre></td></tr></table></figure>
+<ol>
+<li>记录到哪里(error_log)：</li>
 </ol>
-
-
-
-<pre class="prettyprint hljs-dark"><code class="language-php hljs">ini_set(<span class="hljs-string">"php配置项"</span>, 值);    <span class="hljs-comment">//用于脚本中配置php.ini中某项的值，只作用于当前脚本。</span><br>ini_get(<span class="hljs-string">"php配置项"</span>);    <span class="hljs-comment">//用于获取php中某配置项的值</span><br></code></pre>
-
-<ol start="2"><li rel="2"><p>记录到哪里(error_log)：</p>
-
 <ul>
 <li>写法一：直接使用一个文件名，此时系统会自动在每个文件夹下都建立该文件，用于记录该文件夹下所有网页文件发生的错误信息。</li>
-<li>写法二：使用一个特殊的名字<code>“syslog”</code>，则此时所有错误信息都会记录到系统的日志文件中(<code>控制面板--管理工具--事件查看器--Windows日志--应用程序</code>)</li></ul></li>
-</ol>
-
+<li>写法二：使用一个特殊的名字<code>“syslog”</code>，则此时所有错误信息都会记录到系统的日志文件中(<code>控制面板--管理工具--事件查看器--Windows日志--应用程序</code>)</li>
+</ul>
 <blockquote>
-  <ul><li>php.ini中：<code>修改error_log</code></li>
-  <li>脚本中：</li>
-  </ul>
+<ul>
+<li>php.ini中：<code>修改error_log</code></li>
+<li>脚本中：<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ini_set(<span class="string">"error_log"</span>, <span class="string">"my_error.txt"</span>);</div><div class="line">ini_set(<span class="string">"error_log"</span>, <span class="string">"syslog"</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
 </blockquote>
-
-
-
-<pre class="prettyprint hljs-dark"><code class="language-php hljs">    ini_set(<span class="hljs-string">"error_log"</span>, <span class="hljs-string">"my_error.txt"</span>);<br>    ini_set(<span class="hljs-string">"error_log"</span>, <span class="hljs-string">"syslog"</span>);<br></code></pre>
-
-
-
-<h3 id="自定义错误处理器">自定义错误处理器：</h3>
-
-<p><em>错误处理器：就是一旦发生错误，用来处理该错误的一种机器——其实是一个函数。</em></p>
-
-<p><strong>自定义错误处理器：</strong> <br>
-    <em>让系统不要去处理错误了，而完全由开发者来对错误进行处理——显示和记录。</em></p>
-
-<p><strong>做法：</strong> <br>
-第一步：设定要用于处理错误的函数名</p>
-
-
-
-<pre class="prettyprint hljs-dark"><code class="language-php hljs">    set_error_handler(<span class="hljs-string">"my_error_handler"</span>);<br></code></pre>
-
-<p>第二步：去定义该函数</p>
-
-
-
-<pre class="prettyprint hljs-dark"><code class="language-php hljs">    set_error_handler(<span class="hljs-string">"my_error_handler"</span>);<br>    <span class="hljs-comment">/**<br>     * 自定义错误处理器，参数按顺序代表的含义是固定的，名字可以自己定义<br>     * <span class="hljs-doctag">@param</span>  $errCode [错误代号]<br>     * <span class="hljs-doctag">@param</span>  $errMsg  [错误内容]<br>     * <span class="hljs-doctag">@param</span>  $errFile [错误文件]<br>     * <span class="hljs-doctag">@param</span>  $errLine [错误行号]<br>     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_error_handler</span><span class="hljs-params">(<span class="hljs-variable">$errCode</span>, <span class="hljs-variable">$errMsg</span>, <span class="hljs-variable">$errFile</span>, <span class="hljs-variable">$errLine</span>)</span></span>{<br>        <span class="hljs-variable">$str</span> = <span class="hljs-string">""</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;p&gt;错误："</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误代号为："</span>.<span class="hljs-variable">$errCode</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误信息为："</span>.<span class="hljs-variable">$errMsg</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误文件为："</span>.<span class="hljs-variable">$errFile</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;错误行号为："</span>.<span class="hljs-variable">$errLine</span>;<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;br /&gt;发生错误时间为："</span>.date(<span class="hljs-string">"Y-m-d H:i:s"</span>);<br>        <span class="hljs-variable">$str</span> .= <span class="hljs-string">"&lt;/p&gt;"</span>;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>;<br>    }<br></code></pre></div></body></html>]]></content>
+<h3 id="自定义错误处理器："><a href="#自定义错误处理器：" class="headerlink" title="自定义错误处理器："></a>自定义错误处理器：</h3><p><em>错误处理器：就是一旦发生错误，用来处理该错误的一种机器——其实是一个函数。</em></p>
+<p><strong>自定义错误处理器：</strong><br>    <em>让系统不要去处理错误了，而完全由开发者来对错误进行处理——显示和记录。</em></p>
+<p><strong>做法：</strong><br>第一步：设定要用于处理错误的函数名<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set_error_handler(<span class="string">"my_error_handler"</span>);</div></pre></td></tr></table></figure></p>
+<p>第二步：去定义该函数<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">set_error_handler(<span class="string">"my_error_handler"</span>);</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 自定义错误处理器，参数按顺序代表的含义是固定的，名字可以自己定义</div><div class="line"> * <span class="doctag">@param</span>  $errCode [错误代号]</div><div class="line"> * <span class="doctag">@param</span>  $errMsg  [错误内容]</div><div class="line"> * <span class="doctag">@param</span>  $errFile [错误文件]</div><div class="line"> * <span class="doctag">@param</span>  $errLine [错误行号]</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">my_error_handler</span><span class="params">($errCode, $errMsg, $errFile, $errLine)</span></span>&#123;</div><div class="line">    $str = <span class="string">""</span>;</div><div class="line">    $str .= <span class="string">"&lt;p&gt;错误："</span>;</div><div class="line">    $str .= <span class="string">"&lt;br /&gt;错误代号为："</span>.$errCode;</div><div class="line">    $str .= <span class="string">"&lt;br /&gt;错误信息为："</span>.$errMsg;</div><div class="line">    $str .= <span class="string">"&lt;br /&gt;错误文件为："</span>.$errFile;</div><div class="line">    $str .= <span class="string">"&lt;br /&gt;错误行号为："</span>.$errLine;</div><div class="line">    $str .= <span class="string">"&lt;br /&gt;发生错误时间为："</span>.date(<span class="string">"Y-m-d H:i:s"</span>);</div><div class="line">    $str .= <span class="string">"&lt;/p&gt;"</span>;</div><div class="line">    <span class="keyword">echo</span> $str;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
     </entry>
     
     <entry>
