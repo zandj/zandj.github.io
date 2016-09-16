@@ -4,6 +4,20 @@
   
     
     <entry>
+      <title><![CDATA[星星点灯]]></title>
+      <url>http://yoursite.com/2016/09/16/%E6%98%9F%E6%98%9F%E7%82%B9%E7%81%AF/</url>
+      <content type="html"><![CDATA[<p><img src="./1-140ZGTQ6.jpg" alt="仰望星空" title="仰望星空"></p>
+<blockquote class="blockquote-center"><p><strong>星星点灯</strong><br><em>郑智化</em></p>
+<p>抬头的一片天　是男儿的一片天<br>曾经在满天的星光下做梦的少年<br>不知道天多高　不知道海多远<br>却发誓要带着你远走　到海角天边<br>不负责任的誓言　年少轻狂的我<br>在黑暗中迷失才发现自己的脆弱<br>看着你哭红的眼睛　想着远离的家门<br>满天的星星请为我点盏希望的灯火<br>星星点灯　照亮我的家门<br>让迷失的孩子　找到来时的路<br>星星点灯　照亮我的前程<br>用一点光　温暖孩子的心<br>现在的一片天　是肮脏的一片天<br>星星在文明的天空里再也看不见<br>天其实并不高　海其实也不远<br>人心其实比天高　比海更遥远<br>学会骗人的谎言　追逐名利的我<br>在现实中迷失才发现自己的脆弱<br>看着你含泪的离去　想着茫茫的前程<br>远方的星星请为我点盏希望的灯火<br>星星点灯　照亮我的家门<br>让迷失的孩子　找到来时的路<br>星星点灯　照亮我的前程<br>用一点光　温暖孩子的心<br><code>多年以后一场大雨惊醒沉睡的我</code><br><code>突然之间都市的霓虹都不再闪烁</code><br><code>天边有颗模糊的星光偷偷探出了头</code><br><code>是你的眼神依旧在远方为我在等候</code><br>星星点灯　照亮我的家门<br>让迷失的孩子找到来时的路<br>星星点灯　照亮我的前程<br>用一点光　温暖孩子的心</p>
+</blockquote>
+<p><img src="./paipai_audio_20220309444127243_88016_max.jpg" alt="希望就在远方"></p>
+<blockquote>
+<p>人的一生，难免会遇到气馁、彷徨、无助的时候，<br>坚持下去了，就会看到希望</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[php错误处理（二）]]></title>
       <url>http://yoursite.com/2016/09/11/php%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
       <content type="html"><![CDATA[<h3 id="错误日志的记录问题"><a href="#错误日志的记录问题" class="headerlink" title="错误日志的记录问题"></a>错误日志的记录问题</h3><p><em>所谓错误日志，其实就是 错误报告，只是它会写入文件中，此时就叫错误日志。</em></p>
