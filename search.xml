@@ -4,6 +4,48 @@
   
     
     <entry>
+      <title><![CDATA[mysql命令行客户端乱码解决方法]]></title>
+      <url>http://yoursite.com/2016/09/29/mysql%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B9%B1%E7%A0%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h3 id="解决mysql命令行客户端乱码的问题-两种方法"><a href="#解决mysql命令行客户端乱码的问题-两种方法" class="headerlink" title="解决mysql命令行客户端乱码的问题(两种方法)"></a>解决mysql命令行客户端乱码的问题(两种方法)</h3><h4 id="法一：在配置文件中修改编码，自行百之谷之……"><a href="#法一：在配置文件中修改编码，自行百之谷之……" class="headerlink" title="法一：在配置文件中修改编码，自行百之谷之……"></a>法一：在配置文件中修改编码，自行百之谷之……</h4><h4 id="法二：在命令行中修改mysql编码"><a href="#法二：在命令行中修改mysql编码" class="headerlink" title="法二：在命令行中修改mysql编码"></a>法二：在命令行中修改mysql编码</h4><ol>
+<li><p><strong>设置客户端编码</strong><br> 执行 <code>show variables like &#39;character%&#39;;</code> 命令可以看到客户端、连接层、返回结果都是默认的<code>gbk</code>编码：</p>
+<pre><code>character_set_client         gbk    //（客户端）
+character_set_connection     gbk    //（连接层）
+character_set_results        gbk    //（返回结果）
+</code></pre><p> 只要这几项编码一致（都为支持中文的<code>gbk</code>、<code>gb2312</code>、<code>utf8</code>等）就无须修改它们，若为其他不支持中文的编码，就使用命令<code>set names gbk;</code>将这几项编码都设为<code>gbk</code>（或其他支持中文的编码）<br> <strong>注意：</strong>命令行为固定的<code>gbk</code>编码，是不能修改的。</p>
+</li>
+<li><p><strong>创建数据库<code>test</code>,并设置其编码为<code>gbk</code></strong></p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span> <span class="built_in">character</span> <span class="keyword">set</span> gbk;</div></pre></td></tr></table></figure>
+<p> 当然，也可以先创建数据库，然后修改其编码为<code>gbk</code></p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> <span class="keyword">test</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">database</span> <span class="keyword">test</span> <span class="keyword">charset</span> gbk；</div><div class="line"><span class="comment">-- 或者</span></div><div class="line"><span class="comment">-- alter database test character set gbk;</span></div></pre></td></tr></table></figure>
+<p> <strong>注意：</strong> 一定要在建表前修改数据库编码，否则也会出现乱码（亲测）</p>
+</li>
+<li><p>然后就可以建表，插入中文数据了。</p>
+</li>
+</ol>
+<p><strong>总结: </strong>我们只要保证<code>set names 编码;</code>与数据库的编码一致即可，而不用管mysql服务器是什么编码，因为它会进行内部编码转换，将我们发过去的数据以设置的编码格式返回给我们——<code>character_set_results    gbk</code></p>
+<hr>
+<p>执行<code>show variables like &#39;character%&#39;;</code>命令，我们看到<code>character_set_database</code>即数据库编码为<code>latin1</code>编码，这是系统默认的。<br>然后我们新建数据库时，设定其编码，或之后修改其编码，然后执行 <code>use test;</code> 切换到该数据库，执行命令：<code>show variables like &#39;character%&#39;;</code>，可以看到 <code>character_set_database</code>的值变为了我们设定的编码</p>
+<blockquote>
+<p><strong>上面演示的方法用于mysql命令行客户端上解决乱码问题，那么在php应用中呢？</strong></p>
+</blockquote>
+<p>显然在php中访问mysql数据库服务器和mysql命令行中访问时逻辑是一样的！但此时客户端就变成了我们的php程序！<br>假设我们的数据库编码为<code>utf8</code>，那么我们需要保证</p>
+<pre><code>character_set_client
+character_set_connection
+character_set_results
+</code></pre><p>这三项也为<code>utf8</code>编码，只须在php程序中执行<code>mysql_query(&#39;set names utf8&#39;);</code>然后我们就可以解决乱码问题了。<br>当然，前提是你得保证你的页面也采用同样的编码，这样才能正常显示！</p>
+<pre><code>header(&apos;content-type:text/html;charset=gbk&apos;);
+//或
+&lt;mete charset=&quot;utf-8&quot;&gt;
+</code></pre><p></p><p style="height:100px;"></p><p></p>
+<blockquote>
+<p><strong>补充几个mysql的编码查看命令</strong></p>
+</blockquote>
+<p>首先我们接触的就是：<br><code>show variables like &#39;character%&#39;;</code>——显示character字符串开头的变量<br>所以其他命令可以推出来，如查看数据库编码：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">-- 切换到数据库</span></div><div class="line"><span class="keyword">use</span> <span class="keyword">test</span>;</div><div class="line"><span class="comment">-- 查看数据库编码</span></div><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'character_set_database'</span>;</div></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong><br>如果你不是在当前数据库下执行命令，查看的将是系统的设置！！！<br>当然，如果你用其他软件如<em>mysql front</em>或<em>Navicat</em>来录入数据的话，直接输入中文就没问题了。</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[使用Markdown来编辑Evernote]]></title>
       <url>http://yoursite.com/2016/09/20/%E4%BD%BF%E7%94%A8Markdown%E6%9D%A5%E7%BC%96%E8%BE%91Evernote/</url>
       <content type="html"><![CDATA[<p>用过Evernote的人知道，其本身的编辑器简直惨不忍睹，对于我这种需要进行富文本写作和漂亮的排版之人来说，简直是叔叔能忍，婶婶不能忍……可我又确实中意它……，肿么办？  </p>
